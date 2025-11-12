@@ -19,43 +19,57 @@
         </div>
     }
 </div>
-<p>------------------------------------------------------------------------------------------------------</p>
+<hr class="border border-dark border-opacity-25 my-3" />
 <div class="d-flex justify-content-center flex-wrap mb-3">
     @foreach (var rap in Model)
     {
-        <div class="ms-1">
-            <button class="btn btn-outline-secondary m-1">@rap.DIACHI</button>
-        </div>
+        if (rap.MARAP != ViewBag.rapDuocChon)
+        {
+            <div class="ms-1">
+                <a href="@Url.Action("LocTheoDiaChi", "MuaVe", new {marap = rap.MARAP})" class="btn btn-outline-secondary">@rap.DIACHI</a>
+            </div>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", "MuaVe")" class="btn btn-outline-secondary">@rap.DIACHI</a>
+        }
+
     }
 </div>
-<p>------------------------------------------------------------------------------------------------------</p>
+<hr class="border border-dark border-opacity-25 my-3" />
 <div class="d-flex justify-content-center flex-wrap mb-3">
     @foreach (var rap in ViewBag.dsPhongChieu)
     {
-        <div class="ms-1">
-            <button class="btn btn-outline-secondary m-1">@rap.LOAIMANHINH</button>
-        </div>
+        if (rap.LOAIMANHINH != ViewBag.LoaiMHChon)
+        {
+            <div class="ms-1">
+                <a href="@Url.Action("LocTheoLoaiManHinh", "MuaVe", new { marap = rap.MARAP, loai = rap.LOAIMANHINH })" class="btn btn-outline-secondary">@rap.LOAIMANHINH</a>
+            </div>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", "MuaVe")" class="btn btn-outline-secondary">@rap.LOAIMANHINH</a>
+        }
+
     }
 </div>
-<p>------------------------------------------------------------------------------------------------------</p>
+<hr class="border border-dark border-opacity-25 my-3" />
 @foreach (var rap in Model)
 {
     <h5 class="mb-1">@rap.TENRAP</h5>
-    
+
     <div class="d-flex flex-wrap">
         @if (ViewBag.dsPhongChieu != null)
         {
-            foreach (var pc in ViewBag.dsPhongChieu)
+            foreach (var pc in ViewBag.DSNgayChieu)
             {
-                <p class="text-muted mb-2">@pc.LOAIMANHINH</p>
-                <button class="btn btn-light btn-sm me-2 mb-2">
-                    @pc.GIOCHIEU.ToString("HH:mm")
-                </button>
+                @*<p class="text-muted mb-2">@pc.LOAIMANHINH</p>*@
+                <a href="@Url.Action("LocTheoNgay", "MuaVe", new {marap = pc.MARAP, ngayChieu = pc.NGAYCHIEU})" class="btn btn-outline-secondary">@pc.GIOCHIEU.ToString("HH:mm")</a>
             }
         }
     </div>
 }
-<p>------------------------------------------------------------------------------------------------------</p>
+<hr class="border border-dark border-opacity-25 my-3" />
 
 
 

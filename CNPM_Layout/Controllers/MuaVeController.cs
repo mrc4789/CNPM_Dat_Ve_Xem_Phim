@@ -24,17 +24,33 @@ namespace CNPM_Layout.Controllers
             ViewBag.dsPhongChieu = pc;
             return View(pc);
         }
-        public ActionResult LocTheoNgay(string maRap)
+        public ActionResult LocTheoNgay(string maRap, DateTime ngayChieu)
         {
-            SUATCHIEU pc = ql.SUATCHIEUx.FirstOrDefault(x => x.MARAP == maRap);
-            List<RAP> rap = ql.RAPs.Where(x => x.MARAP == pc.MARAP).ToList();
-            return View(pc);
+            List<SUATCHIEU> ngay = ql.SUATCHIEUx.Where(x => x.MARAP == maRap && x.NGAYCHIEU.Value.Date == ngayChieu.Date).ToList();
+            List<PHONGCHIEU> pc = ql.PHONGCHIEUx.Where(x => x.MARAP == maRap).ToList();
+            List<RAP> rap = ql.RAPs.Where(x => x.MARAP == maRap).ToList();
+            ViewBag.dsPhongChieu = pc;
+            ViewBag.DSNgayChieu = ngay;
+            return View("Index", rap);
         }
-        public ActionResult LocTheoLoaiManHinh(string maRap)
+        //Tìm kiếm rạp và suất chiếu theo địa chỉ
+        public ActionResult LocTheoDiaChi(string marap)
         {
-            PHONGCHIEU pc = ql.PHONGCHIEUx.FirstOrDefault(x => x.MARAP == maRap);
-            List<RAP> rap = ql.RAPs.Where(x => x.MARAP == pc.MARAP).ToList();
-            return View(pc);
+            List<PHONGCHIEU> pc = ql.PHONGCHIEUx.Where(x => x.MARAP == marap).ToList();
+            List<RAP> diaChiRap = ql.RAPs.Where(x => x.MARAP == marap).ToList();
+            ViewBag.dsPhongChieu = pc;
+            ViewBag.rapDuocChon = marap;
+            return View("Index", diaChiRap);
+        }
+        //Tìm kiếm rạp và suất chiếu theo loại màn hình
+        public ActionResult LocTheoLoaiManHinh(string maRap, string loai)
+        {
+
+            List<PHONGCHIEU> pc = ql.PHONGCHIEUx.Where(x => x.MARAP == maRap && x.LOAIMANHINH == loai).ToList();
+            List<RAP> loaiMH = ql.RAPs.Where(x => x.MARAP == maRap).ToList();
+            ViewBag.dsPhongChieu = pc;
+            ViewBag.LoaiMHChon = loai;
+            return View("Index", loaiMH);
         }
 
     }

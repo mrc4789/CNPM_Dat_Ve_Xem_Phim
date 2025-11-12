@@ -160,7 +160,6 @@
     <Compile Include="Models\KHUYENMAI.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\PHIEUTHANHTOAN.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
