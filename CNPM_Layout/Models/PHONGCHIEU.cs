@@ -22,11 +22,10 @@ namespace CNPM_Layout.Models
         public string MAPHONG { get; set; }
         public string MARAP { get; set; }
         public Nullable<int> SUCCHUA { get; set; }
-        public string LOAIMANHINH { get; set; }
-        public Nullable<System.DateTime> GIOCHIEU { get; set; }
+        public string MALOAI { get; set; }
     
         public virtual ICollection<GHE> GHEs { get; set; }
+        public virtual LOAIMANHINH LOAIMANHINH { get; set; }
         public virtual RAP RAP { get; set; }
-        public virtual RAP RAP1 { get; set; }
     }
 }

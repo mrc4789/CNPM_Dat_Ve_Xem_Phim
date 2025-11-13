@@ -1,0 +1,17 @@
+﻿@model List<CNPM_Layout.Models.SUATCHIEU>
+@{
+    Layout = null;
+}
+<div class="d-flex justify-content-center flex-wrap mb-3">
+    @foreach (var rap in Model)
+    {
+        <div class="d-flex flex-wrap">
+            <div class="d-flex flex-wrap">
+                <button class="btn btn-light btn-sm me-2 mb-2">
+                    @rap.GIOCHIEU.Value.ToString(@"hh\:mm")
+                </button>
+
+            </div>
+        </div>
+    }
+    </div>

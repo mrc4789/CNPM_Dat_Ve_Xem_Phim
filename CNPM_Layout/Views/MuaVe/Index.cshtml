@@ -1,25 +1,14 @@
 ﻿@model List<CNPM_Layout.Models.RAP>
 @{
-    DateTime today = DateTime.Now;
-    DateTime soNgayTrongThang = today;
-    soNgayTrongThang = soNgayTrongThang.AddMonths(1);
-    soNgayTrongThang = soNgayTrongThang.AddDays(-(soNgayTrongThang.Day));
-}
-
-<div class="d-flex justify-content-center flex-wrap mb-3">
-    @for (int i = 0; i < soNgayTrongThang.Day; i++)
+    foreach (var item in Model)
     {
-        DateTime thoiGian = today.AddDays(i);
-        string ngay = thoiGian.Day.ToString("00");
-        string thang = thoiGian.Month.ToString("00");
-        string thu = thoiGian.ToString("ddd");
-
-        <div class="day" onclick="getSelectDay(25023800, '@thoiGian.ToString("yyyyMMdd")');">
-            <button class="btn btn-outline-secondary m-1">@ngay <small>@thu </small><span>@thang</span></button>
-        </div>
+        ViewBag.rapDuocChon = item.MARAP;
     }
-</div>
+}
+@*-----------Hiển thị ngày chiếu ------------------------*@
+@Html.Action("_NgayChieu", "MuaVe", new { maRap = ViewBag.RapDuocChon })
 <hr class="border border-dark border-opacity-25 my-3" />
+@*-----------Hiển thị địa chỉ rạp ------------------------*@
 <div class="d-flex justify-content-center flex-wrap mb-3">
     @foreach (var rap in Model)
     {
@@ -28,51 +17,29 @@
             <div class="ms-1">
                 <a href="@Url.Action("LocTheoDiaChi", "MuaVe", new {marap = rap.MARAP})" class="btn btn-outline-secondary">@rap.DIACHI</a>
             </div>
+            
         }
         else
         {
             <a href="@Url.Action("Index", "MuaVe")" class="btn btn-outline-secondary">@rap.DIACHI</a>
         }
-
     }
 </div>
 <hr class="border border-dark border-opacity-25 my-3" />
-<div class="d-flex justify-content-center flex-wrap mb-3">
-    @foreach (var rap in ViewBag.dsPhongChieu)
-    {
-        if (rap.LOAIMANHINH != ViewBag.LoaiMHChon)
-        {
-            <div class="ms-1">
-                <a href="@Url.Action("LocTheoLoaiManHinh", "MuaVe", new { marap = rap.MARAP, loai = rap.LOAIMANHINH })" class="btn btn-outline-secondary">@rap.LOAIMANHINH</a>
-            </div>
-        }
-        else
-        {
-            <a href="@Url.Action("Index", "MuaVe")" class="btn btn-outline-secondary">@rap.LOAIMANHINH</a>
-        }
-
-    }
-</div>
+@*-----------Hiển thị loại màn hình ------------------------*@
+@Html.Action("_LoaiManHinh", "MuaVe", new { marap = ViewBag.RapDuocChon })
 <hr class="border border-dark border-opacity-25 my-3" />
+@*-----------Hiển thị suất chiếu ------------------------*@
+
 @foreach (var rap in Model)
 {
-    <h5 class="mb-1">@rap.TENRAP</h5>
-
-    <div class="d-flex flex-wrap">
-        @if (ViewBag.dsPhongChieu != null)
+    <div class="ms-auto">
+        <h3>@rap.TENRAP</h3>
+        @*@foreach (var item in ViewBag.ManHinh as List<CNPM_Layout.Models.LOAIMANHINH>)
         {
-            foreach (var pc in ViewBag.DSNgayChieu)
-            {
-                @*<p class="text-muted mb-2">@pc.LOAIMANHINH</p>*@
-                <a href="@Url.Action("LocTheoNgay", "MuaVe", new {marap = pc.MARAP, ngayChieu = pc.NGAYCHIEU})" class="btn btn-outline-secondary">@pc.GIOCHIEU.ToString("HH:mm")</a>
-            }
-        }
+            <a>@item.MANHINH</a>;
+        }*@
+        @Html.Action("_SuatChieu", "MuaVe", new { marap = ViewBag.RapDuocChon })
     </div>
 }
 <hr class="border border-dark border-opacity-25 my-3" />
-
-
-
-
-
-

@@ -1,0 +1,22 @@
+﻿@model List<CNPM_Layout.Models.LOAIMANHINH>
+@{ 
+    Layout = null;
+    string marapChon = ViewBag.rapDuocChon;
+}
+
+<div class="d-flex justify-content-center flex-wrap mb-3">
+    @foreach (var rap in Model)
+    {
+        if (rap.MANHINH != ViewBag.LoaiMHChon)
+        {
+            <div class="ms-1">
+                <a href="@Url.Action("LocTheoLoaiManHinh", "MuaVe", new { maLoai = rap.MALOAI, marap = marapChon })" class="btn btn-outline-secondary">@rap.MANHINH</a>
+            </div>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", "MuaVe")" class="btn btn-outline-secondary">@rap.MANHINH</a>
+        }
+
+    }
+</div>

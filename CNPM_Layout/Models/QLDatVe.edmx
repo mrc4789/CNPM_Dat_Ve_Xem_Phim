@@ -114,6 +114,13 @@
           <Property Name="NGAYKT" Type="date" />
           <Property Name="DIEUKIEN" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="LOAIMANHINH">
+          <Key>
+            <PropertyRef Name="MALOAI" />
+          </Key>
+          <Property Name="MALOAI" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="MANHINH" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="PHIEUTHANHTOAN">
           <Key>
             <PropertyRef Name="MAHD" />
@@ -151,8 +158,7 @@
           <Property Name="MAPHONG" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="MARAP" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="SUCCHUA" Type="int" />
-          <Property Name="LOAIMANHINH" Type="nvarchar" MaxLength="30" />
-          <Property Name="GIOCHIEU" Type="datetime" />
+          <Property Name="MALOAI" Type="char" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="PHUONGTHUCTHANHTOAN">
           <Key>
@@ -176,7 +182,8 @@
           <Property Name="MASUATCHIEU" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="MAPHIM" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="MARAP" Type="char" MaxLength="5" Nullable="false" />
-          <Property Name="NGAYCHIEU" Type="datetime" />
+          <Property Name="NGAYCHIEU" Type="date" />
+          <Property Name="GIOCHIEU" Type="time" Precision="7" />
           <Property Name="GIACOBAN" Type="float" />
           <Property Name="TRANGTHAI" Type="nvarchar" MaxLength="255" />
         </EntityType>
@@ -336,19 +343,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PHONGCHI_RELATIONS_RAP">
-          <End Role="RAP" Type="Self.RAP" Multiplicity="1" />
+        <Association Name="FK_PHONGCHI_RELATIONS_LOAIMANHINH">
+          <End Role="LOAIMANHINH" Type="Self.LOAIMANHINH" Multiplicity="1" />
           <End Role="PHONGCHIEU" Type="Self.PHONGCHIEU" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="RAP">
-              <PropertyRef Name="MARAP" />
+            <Principal Role="LOAIMANHINH">
+              <PropertyRef Name="MALOAI" />
             </Principal>
             <Dependent Role="PHONGCHIEU">
-              <PropertyRef Name="MARAP" />
+              <PropertyRef Name="MALOAI" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PHONGCHIEU_RELATIONS_RAP">
+        <Association Name="FK_PHONGCHI_RELATIONS_RAP">
           <End Role="RAP" Type="Self.RAP" Multiplicity="1" />
           <End Role="PHONGCHIEU" Type="Self.PHONGCHIEU" Multiplicity="*" />
           <ReferentialConstraint>
@@ -407,6 +414,7 @@
           <EntitySet Name="HUYDOIVE" EntityType="Self.HUYDOIVE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHUYENMAI" EntityType="Self.KHUYENMAI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAIMANHINH" EntityType="Self.LOAIMANHINH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PHIEUTHANHTOAN" EntityType="Self.PHIEUTHANHTOAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PHIM" EntityType="Self.PHIM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PHONGCHIEU" EntityType="Self.PHONGCHIEU" Schema="dbo" store:Type="Tables" />
@@ -462,11 +470,11 @@
             <End Role="PHUONGTHUCTHANHTOAN" EntitySet="PHUONGTHUCTHANHTOAN" />
             <End Role="PHIEUTHANHTOAN" EntitySet="PHIEUTHANHTOAN" />
           </AssociationSet>
-          <AssociationSet Name="FK_PHONGCHI_RELATIONS_RAP" Association="Self.FK_PHONGCHI_RELATIONS_RAP">
-            <End Role="RAP" EntitySet="RAP" />
+          <AssociationSet Name="FK_PHONGCHI_RELATIONS_LOAIMANHINH" Association="Self.FK_PHONGCHI_RELATIONS_LOAIMANHINH">
+            <End Role="LOAIMANHINH" EntitySet="LOAIMANHINH" />
             <End Role="PHONGCHIEU" EntitySet="PHONGCHIEU" />
           </AssociationSet>
-          <AssociationSet Name="FK_PHONGCHIEU_RELATIONS_RAP" Association="Self.FK_PHONGCHIEU_RELATIONS_RAP">
+          <AssociationSet Name="FK_PHONGCHI_RELATIONS_RAP" Association="Self.FK_PHONGCHI_RELATIONS_RAP">
             <End Role="RAP" EntitySet="RAP" />
             <End Role="PHONGCHIEU" EntitySet="PHONGCHIEU" />
           </AssociationSet>
@@ -617,6 +625,14 @@
           <Property Name="DIEUKIEN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CHITIETKHUYENMAIs" Relationship="Self.FK_CHITIETK_CHITIETKH_KHUYENMA" FromRole="KHUYENMAI" ToRole="CHITIETKHUYENMAI" />
         </EntityType>
+        <EntityType Name="LOAIMANHINH">
+          <Key>
+            <PropertyRef Name="MALOAI" />
+          </Key>
+          <Property Name="MALOAI" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MANHINH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PHONGCHIEUx" Relationship="Self.FK_PHONGCHI_RELATIONS_LOAIMANHINH" FromRole="LOAIMANHINH" ToRole="PHONGCHIEU" />
+        </EntityType>
         <EntityType Name="PHIEUTHANHTOAN">
           <Key>
             <PropertyRef Name="MAHD" />
@@ -657,11 +673,10 @@
           <Property Name="MAPHONG" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MARAP" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="SUCCHUA" Type="Int32" />
-          <Property Name="LOAIMANHINH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="GIOCHIEU" Type="DateTime" Precision="3" />
+          <Property Name="MALOAI" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="GHEs" Relationship="Self.FK_GHE_RELATIONS_PHONGCHI" FromRole="PHONGCHIEU" ToRole="GHE" />
+          <NavigationProperty Name="LOAIMANHINH" Relationship="Self.FK_PHONGCHI_RELATIONS_LOAIMANHINH" FromRole="PHONGCHIEU" ToRole="LOAIMANHINH" />
           <NavigationProperty Name="RAP" Relationship="Self.FK_PHONGCHI_RELATIONS_RAP" FromRole="PHONGCHIEU" ToRole="RAP" />
-          <NavigationProperty Name="RAP1" Relationship="Self.FK_PHONGCHIEU_RELATIONS_RAP" FromRole="PHONGCHIEU" ToRole="RAP" />
         </EntityType>
         <EntityType Name="PHUONGTHUCTHANHTOAN">
           <Key>
@@ -679,7 +694,6 @@
           <Property Name="TENRAP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DIACHI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PHONGCHIEUx" Relationship="Self.FK_PHONGCHI_RELATIONS_RAP" FromRole="RAP" ToRole="PHONGCHIEU" />
-          <NavigationProperty Name="PHONGCHIEUx1" Relationship="Self.FK_PHONGCHIEU_RELATIONS_RAP" FromRole="RAP" ToRole="PHONGCHIEU" />
           <NavigationProperty Name="SUATCHIEUx" Relationship="Self.FK_SUATCHIE_RELATIONS_RAP" FromRole="RAP" ToRole="SUATCHIEU" />
         </EntityType>
         <EntityType Name="SUATCHIEU">
@@ -689,7 +703,8 @@
           <Property Name="MASUATCHIEU" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MAPHIM" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MARAP" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="NGAYCHIEU" Type="DateTime" Precision="3" />
+          <Property Name="NGAYCHIEU" Type="DateTime" Precision="0" />
+          <Property Name="GIOCHIEU" Type="Time" Precision="7" />
           <Property Name="GIACOBAN" Type="Double" />
           <Property Name="TRANGTHAI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PHIM" Relationship="Self.FK_SUATCHIE_RELATIONS_PHIM" FromRole="SUATCHIEU" ToRole="PHIM" />
@@ -853,6 +868,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PHONGCHI_RELATIONS_LOAIMANHINH">
+          <End Role="LOAIMANHINH" Type="Self.LOAIMANHINH" Multiplicity="1" />
+          <End Role="PHONGCHIEU" Type="Self.PHONGCHIEU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIMANHINH">
+              <PropertyRef Name="MALOAI" />
+            </Principal>
+            <Dependent Role="PHONGCHIEU">
+              <PropertyRef Name="MALOAI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PHIEUTHA_PHIEUTHAN_PHUONGTH">
           <End Role="PHUONGTHUCTHANHTOAN" Type="Self.PHUONGTHUCTHANHTOAN" Multiplicity="1" />
           <End Role="PHIEUTHANHTOAN" Type="Self.PHIEUTHANHTOAN" Multiplicity="*" />
@@ -889,18 +916,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PHONGCHIEU_RELATIONS_RAP">
-          <End Role="RAP" Type="Self.RAP" Multiplicity="1" />
-          <End Role="PHONGCHIEU" Type="Self.PHONGCHIEU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RAP">
-              <PropertyRef Name="MARAP" />
-            </Principal>
-            <Dependent Role="PHONGCHIEU">
-              <PropertyRef Name="MARAP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SUATCHIE_RELATIONS_RAP">
           <End Role="RAP" Type="Self.RAP" Multiplicity="1" />
           <End Role="SUATCHIEU" Type="Self.SUATCHIEU" Multiplicity="*" />
@@ -924,6 +939,7 @@
           <EntitySet Name="HUYDOIVEs" EntityType="Self.HUYDOIVE" />
           <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
           <EntitySet Name="KHUYENMAIs" EntityType="Self.KHUYENMAI" />
+          <EntitySet Name="LOAIMANHINHs" EntityType="Self.LOAIMANHINH" />
           <EntitySet Name="PHIEUTHANHTOANs" EntityType="Self.PHIEUTHANHTOAN" />
           <EntitySet Name="PHIMs" EntityType="Self.PHIM" />
           <EntitySet Name="PHONGCHIEUx" EntityType="Self.PHONGCHIEU" />
@@ -979,6 +995,10 @@
             <End Role="HOADON" EntitySet="HOADONs" />
             <End Role="VE" EntitySet="VEs" />
           </AssociationSet>
+          <AssociationSet Name="FK_PHONGCHI_RELATIONS_LOAIMANHINH" Association="Self.FK_PHONGCHI_RELATIONS_LOAIMANHINH">
+            <End Role="LOAIMANHINH" EntitySet="LOAIMANHINHs" />
+            <End Role="PHONGCHIEU" EntitySet="PHONGCHIEUx" />
+          </AssociationSet>
           <AssociationSet Name="FK_PHIEUTHA_PHIEUTHAN_PHUONGTH" Association="Self.FK_PHIEUTHA_PHIEUTHAN_PHUONGTH">
             <End Role="PHUONGTHUCTHANHTOAN" EntitySet="PHUONGTHUCTHANHTOANs" />
             <End Role="PHIEUTHANHTOAN" EntitySet="PHIEUTHANHTOANs" />
@@ -988,10 +1008,6 @@
             <End Role="SUATCHIEU" EntitySet="SUATCHIEUx" />
           </AssociationSet>
           <AssociationSet Name="FK_PHONGCHI_RELATIONS_RAP" Association="Self.FK_PHONGCHI_RELATIONS_RAP">
-            <End Role="RAP" EntitySet="RAPs" />
-            <End Role="PHONGCHIEU" EntitySet="PHONGCHIEUx" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PHONGCHIEU_RELATIONS_RAP" Association="Self.FK_PHONGCHIEU_RELATIONS_RAP">
             <End Role="RAP" EntitySet="RAPs" />
             <End Role="PHONGCHIEU" EntitySet="PHONGCHIEUx" />
           </AssociationSet>
@@ -1121,6 +1137,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LOAIMANHINHs">
+            <EntityTypeMapping TypeName="QLDATVEModel.LOAIMANHINH">
+              <MappingFragment StoreEntitySet="LOAIMANHINH">
+                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
+                <ScalarProperty Name="MANHINH" ColumnName="MANHINH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PHIEUTHANHTOANs">
             <EntityTypeMapping TypeName="QLDATVEModel.PHIEUTHANHTOAN">
               <MappingFragment StoreEntitySet="PHIEUTHANHTOAN">
@@ -1158,8 +1182,7 @@
                 <ScalarProperty Name="MAPHONG" ColumnName="MAPHONG" />
                 <ScalarProperty Name="MARAP" ColumnName="MARAP" />
                 <ScalarProperty Name="SUCCHUA" ColumnName="SUCCHUA" />
-                <ScalarProperty Name="LOAIMANHINH" ColumnName="LOAIMANHINH" />
-                <ScalarProperty Name="GIOCHIEU" ColumnName="GIOCHIEU" />
+                <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1187,6 +1210,7 @@
                 <ScalarProperty Name="MAPHIM" ColumnName="MAPHIM" />
                 <ScalarProperty Name="MARAP" ColumnName="MARAP" />
                 <ScalarProperty Name="NGAYCHIEU" ColumnName="NGAYCHIEU" />
+                <ScalarProperty Name="GIOCHIEU" ColumnName="GIOCHIEU" />
                 <ScalarProperty Name="GIACOBAN" ColumnName="GIACOBAN" />
                 <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
               </MappingFragment>

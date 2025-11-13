@@ -142,6 +142,7 @@
     <Compile Include="Models\CHITIETKHUYENMAI.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\DICHVU.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
@@ -158,6 +159,9 @@
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KHUYENMAI.cs">
+      <DependentUpon>QLDatVe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAIMANHINH.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PHIEUTHANHTOAN.cs">
@@ -265,6 +269,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\MuaVe\Index.cshtml" />
+    <Content Include="Views\MuaVe\ChonGhe.cshtml" />
+    <Content Include="Views\MuaVe\_LoaiManHinh.cshtml" />
+    <Content Include="Views\MuaVe\_NgayChieu.cshtml" />
+    <Content Include="Views\MuaVe\_SuatChieu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

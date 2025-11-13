@@ -35,6 +35,7 @@ namespace CNPM_Layout.Models
         public DbSet<HUYDOIVE> HUYDOIVEs { get; set; }
         public DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public DbSet<KHUYENMAI> KHUYENMAIs { get; set; }
+        public DbSet<LOAIMANHINH> LOAIMANHINHs { get; set; }
         public DbSet<PHIEUTHANHTOAN> PHIEUTHANHTOANs { get; set; }
         public DbSet<PHIM> PHIMs { get; set; }
         public DbSet<PHONGCHIEU> PHONGCHIEUx { get; set; }

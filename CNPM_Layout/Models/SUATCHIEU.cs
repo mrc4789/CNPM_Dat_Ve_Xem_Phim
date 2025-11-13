@@ -18,6 +18,7 @@ namespace CNPM_Layout.Models
         public string MAPHIM { get; set; }
         public string MARAP { get; set; }
         public Nullable<System.DateTime> NGAYCHIEU { get; set; }
+        public Nullable<System.TimeSpan> GIOCHIEU { get; set; }
         public Nullable<double> GIACOBAN { get; set; }
         public string TRANGTHAI { get; set; }
     

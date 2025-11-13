@@ -12,19 +12,16 @@ namespace CNPM_Layout.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RAP
+    public partial class LOAIMANHINH
     {
-        public RAP()
+        public LOAIMANHINH()
         {
             this.PHONGCHIEUx = new HashSet<PHONGCHIEU>();
-            this.SUATCHIEUx = new HashSet<SUATCHIEU>();
         }
     
-        public string MARAP { get; set; }
-        public string TENRAP { get; set; }
-        public string DIACHI { get; set; }
+        public string MALOAI { get; set; }
+        public string MANHINH { get; set; }
     
         public virtual ICollection<PHONGCHIEU> PHONGCHIEUx { get; set; }
-        public virtual ICollection<SUATCHIEU> SUATCHIEUx { get; set; }
     }
 }
