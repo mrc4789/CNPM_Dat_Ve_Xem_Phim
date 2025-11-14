@@ -1,12 +1,9 @@
 ﻿@model List<CNPM_Layout.Models.RAP>
 @{
-    foreach (var item in Model)
-    {
-        ViewBag.rapDuocChon = item.MARAP;
-    }
+    
 }
 @*-----------Hiển thị ngày chiếu ------------------------*@
-@Html.Action("_NgayChieu", "MuaVe", new { maRap = ViewBag.RapDuocChon })
+@Html.Action("_NgayChieu", "MuaVe", new { marap = ViewBag.rapDuocChon })
 <hr class="border border-dark border-opacity-25 my-3" />
 @*-----------Hiển thị địa chỉ rạp ------------------------*@
 <div class="d-flex justify-content-center flex-wrap mb-3">
@@ -27,7 +24,7 @@
 </div>
 <hr class="border border-dark border-opacity-25 my-3" />
 @*-----------Hiển thị loại màn hình ------------------------*@
-@Html.Action("_LoaiManHinh", "MuaVe", new { marap = ViewBag.RapDuocChon })
+@Html.Action("_LoaiManHinh", "MuaVe", new { marap = ViewBag.rapDuocChon })
 <hr class="border border-dark border-opacity-25 my-3" />
 @*-----------Hiển thị suất chiếu ------------------------*@
 
@@ -35,11 +32,11 @@
 {
     <div class="ms-auto">
         <h3>@rap.TENRAP</h3>
-        @*@foreach (var item in ViewBag.ManHinh as List<CNPM_Layout.Models.LOAIMANHINH>)
+        @if (!string.IsNullOrEmpty(ViewBag.LoaiMHChon as string))
         {
-            <a>@item.MANHINH</a>;
-        }*@
-        @Html.Action("_SuatChieu", "MuaVe", new { marap = ViewBag.RapDuocChon })
+            <p>@ViewBag.TenLoaiMH</p>
+        }
+        @Html.Action("_SuatChieu", "MuaVe", new { marap = ViewBag.rapDuocChon })
     </div>
 }
 <hr class="border border-dark border-opacity-25 my-3" />

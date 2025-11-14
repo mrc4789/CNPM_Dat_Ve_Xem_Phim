@@ -1,16 +1,13 @@
-﻿@model List<CNPM_Layout.Models.SUATCHIEU>
+﻿
 @{
     Layout = null;
     DateTime today = DateTime.Now;
     DateTime soNgayTrongThang = today;
     soNgayTrongThang = soNgayTrongThang.AddMonths(1);
     soNgayTrongThang = soNgayTrongThang.AddDays(-(soNgayTrongThang.Day));
-    ViewBag.Marap = null;
+
 }
-@foreach (var item in Model)
-{
-    ViewBag.Marap = item.MARAP;
-}    
+  
 <div class="d-flex justify-content-center flex-wrap mb-3">
     @for (int i = 0; i < soNgayTrongThang.Day; i++)
     {
@@ -21,7 +18,7 @@
 
         <div class="day" onclick="getSelectDay(25023800, '@thoiGian.ToString("yyyyMMdd")');">
             
-                <a href="@Url.Action("LocTheoNgay","MuaVe", new {marap = ViewBag.Marap, ngayChieu = @thoiGian.ToString("yyyy-MM-dd")})" class="btn btn-outline-secondary m-1">@ngay <small>@thu </small><span>@thang</span></a>
+                <a href="@Url.Action("LocTheoNgay","MuaVe", new {marap = ViewBag.rapDuocChon, ngayChieu = @thoiGian.ToString("yyyy-MM-dd")})" class="btn btn-outline-secondary m-1">@ngay <small>@thu </small><span>@thang</span></a>
         </div>
     }
 </div>
