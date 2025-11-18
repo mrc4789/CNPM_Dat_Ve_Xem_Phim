@@ -20,7 +20,7 @@ namespace CNPM_Layout.Models
         }
     
         public string MALOAI { get; set; }
-        public string MANHINH { get; set; }
+        public string DINHDANG { get; set; }
     
         public virtual ICollection<PHONGCHIEU> PHONGCHIEUx { get; set; }
     }

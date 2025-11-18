@@ -17,12 +17,14 @@ namespace CNPM_Layout.Models
         public string MASUATCHIEU { get; set; }
         public string MAPHIM { get; set; }
         public string MARAP { get; set; }
+        public string MAPHONG { get; set; }
         public Nullable<System.DateTime> NGAYCHIEU { get; set; }
         public Nullable<System.TimeSpan> GIOCHIEU { get; set; }
         public Nullable<double> GIACOBAN { get; set; }
         public string TRANGTHAI { get; set; }
     
         public virtual PHIM PHIM { get; set; }
+        public virtual PHONGCHIEU PHONGCHIEU { get; set; }
         public virtual RAP RAP { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace CNPM_Layout.Models
         public PHONGCHIEU()
         {
             this.GHEs = new HashSet<GHE>();
+            this.SUATCHIEUx = new HashSet<SUATCHIEU>();
         }
     
         public string MAPHONG { get; set; }
@@ -27,5 +28,6 @@ namespace CNPM_Layout.Models
         public virtual ICollection<GHE> GHEs { get; set; }
         public virtual LOAIMANHINH LOAIMANHINH { get; set; }
         public virtual RAP RAP { get; set; }
+        public virtual ICollection<SUATCHIEU> SUATCHIEUx { get; set; }
     }
 }

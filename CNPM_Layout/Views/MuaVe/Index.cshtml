@@ -1,42 +1,28 @@
 ﻿@model List<CNPM_Layout.Models.RAP>
-@{
-    
-}
+
 @*-----------Hiển thị ngày chiếu ------------------------*@
-@Html.Action("_NgayChieu", "MuaVe", new { marap = ViewBag.rapDuocChon })
+
+@Html.Action("_NgayChieu", "MuaVe", new { diaChi = ViewBag.DiaChiDuocChon, ngayChieu = ViewBag.NgayChieu, maLoai = ViewBag.LoaiMHChon })
+
 <hr class="border border-dark border-opacity-25 my-3" />
+
 @*-----------Hiển thị địa chỉ rạp ------------------------*@
+
 <div class="d-flex justify-content-center flex-wrap mb-3">
-    @foreach (var rap in Model)
-    {
-        if (rap.MARAP != ViewBag.rapDuocChon)
-        {
-            <div class="ms-1">
-                <a href="@Url.Action("LocTheoDiaChi", "MuaVe", new {marap = rap.MARAP})" class="btn btn-outline-secondary">@rap.DIACHI</a>
-            </div>
-            
-        }
-        else
-        {
-            <a href="@Url.Action("Index", "MuaVe")" class="btn btn-outline-secondary">@rap.DIACHI</a>
-        }
-    }
+    @Html.Action("_LocTheoDiaChi", "MuaVe", new { diaChi = ViewBag.DiaChiDuocChon, ngayChieu = ViewBag.NgayChieu, maLoai = ViewBag.LoaiMHChon })
 </div>
+
 <hr class="border border-dark border-opacity-25 my-3" />
+
 @*-----------Hiển thị loại màn hình ------------------------*@
-@Html.Action("_LoaiManHinh", "MuaVe", new { marap = ViewBag.rapDuocChon })
+
+@Html.Action("_LoaiManHinh", "MuaVe", new { ngayChieu = ViewBag.NgayChieu, diaChi = ViewBag.DiaChiDuocChon, maLoai = ViewBag.LoaiMHChon })
+
 <hr class="border border-dark border-opacity-25 my-3" />
+
 @*-----------Hiển thị suất chiếu ------------------------*@
 
-@foreach (var rap in Model)
-{
-    <div class="ms-auto">
-        <h3>@rap.TENRAP</h3>
-        @if (!string.IsNullOrEmpty(ViewBag.LoaiMHChon as string))
-        {
-            <p>@ViewBag.TenLoaiMH</p>
-        }
-        @Html.Action("_SuatChieu", "MuaVe", new { marap = ViewBag.rapDuocChon })
-    </div>
-}
+@Html.Action("_SuatChieu", "MuaVe", new { ngayChieu = ViewBag.NgayChieu, diaChi = ViewBag.DiaChiDuocChon, maLoai = ViewBag.LoaiMHChon })
+
 <hr class="border border-dark border-opacity-25 my-3" />
+

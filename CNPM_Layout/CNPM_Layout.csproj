@@ -142,7 +142,6 @@
     <Compile Include="Models\CHITIETKHUYENMAI.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\DICHVU.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
@@ -161,6 +160,7 @@
     <Compile Include="Models\KHUYENMAI.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LaySuatChieu.cs" />
     <Compile Include="Models\LOAIMANHINH.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
@@ -273,6 +273,7 @@
     <Content Include="Views\MuaVe\_LoaiManHinh.cshtml" />
     <Content Include="Views\MuaVe\_NgayChieu.cshtml" />
     <Content Include="Views\MuaVe\_SuatChieu.cshtml" />
+    <Content Include="Views\MuaVe\_LocTheoDiaChi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -304,6 +305,7 @@
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.0.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
