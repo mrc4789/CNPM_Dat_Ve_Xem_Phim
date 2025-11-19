@@ -23,7 +23,7 @@
                         <div class="d-flex flex-wrap">
                             @foreach (var item in subGroup)
                             {
-                                <a href="@Url.Action("DatVe", "MuaVe", new { maSuat = item.MaSuatChieu })"
+                                <a href="@Url.Action("Index", "ChonGhe", new { maSuatChieu = item.MaSuatChieu?.Trim() })"
                                    class="btn btn-outline-dark btn-sm m-1">
                                     @item.GioChieu.ToString(@"hh\:mm")
                                 </a>

@@ -1,0 +1,104 @@
+﻿@model List<CNPM_Layout.Models.SUATCHIEU>
+
+@{
+    ViewBag.Title = "Chọn ghế - " + ViewBag.TenPhim;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-4">
+    <!-- Thông báo lỗi/thành công -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Lỗi!</strong> @TempData["Error"]
+            @if (TempData["ChiTiet"] != null)
+            {
+                <hr />
+                <div>@Html.Raw(TempData["ChiTiet"])</div>
+            }
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Thành công!</strong> @TempData["Success"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <!-- Thông tin suất chiếu -->
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-film"></i> @ViewBag.TenPhim
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-2">
+                        <i class="fas fa-map-marker-alt text-danger"></i>
+                        <strong>Rạp:</strong> @ViewBag.TenRap
+                    </p>
+                    <p class="mb-2">
+                        <i class="fas fa-location-arrow"></i>
+                        <strong>Địa chỉ:</strong> @ViewBag.DiaChiRap
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-2">
+                        <i class="fas fa-calendar-alt text-danger"></i>
+                        <strong>Ngày chiếu:</strong> @ViewBag.NgayChieu
+                    </p>
+                    <p class="mb-2">
+                        <i class="fas fa-clock text-danger"></i>
+                        <strong>Giờ chiếu:</strong> @ViewBag.GioChieu
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danh sách ghế (Partial View) -->
+    <div class="card">
+        <div class="card-body">
+            <div id="seat-container">
+                @Html.Action("_DanhSachGhe", "ChonGhe", new { maSuatChieu = ViewBag.MaSuatChieu })
+            </div>
+        </div>
+    </div>
+
+    <!-- Thông tin đặt ghế -->
+    <div class="card mt-4 mb-4">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5>Ghế đã chọn</h5>
+                    <p id="selected-seats-info" class="text-muted mb-0">
+                        Chưa chọn ghế nào
+                    </p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <p class="mb-1 text-muted">Tổng tiền</p>
+                    <h3 id="total-price" class="text-danger mb-0">0 đ</h3>
+                </div>
+                <div class="col-md-3 text-right">
+                    <button type="button"
+                            id="btn-continue"
+                            class="btn btn-danger btn-lg btn-block"
+                            disabled
+                            onclick="submitBooking()">
+                        <i class="fas fa-arrow-right"></i> Tiếp tục
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

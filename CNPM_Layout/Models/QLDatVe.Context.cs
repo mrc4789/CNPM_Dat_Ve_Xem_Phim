@@ -42,6 +42,7 @@ namespace CNPM_Layout.Models
         public DbSet<PHUONGTHUCTHANHTOAN> PHUONGTHUCTHANHTOANs { get; set; }
         public DbSet<RAP> RAPs { get; set; }
         public DbSet<SUATCHIEU> SUATCHIEUx { get; set; }
+        public DbSet<TINHTRANGGHE> TINHTRANGGHEs { get; set; }
         public DbSet<VE> VEs { get; set; }
     }
 }

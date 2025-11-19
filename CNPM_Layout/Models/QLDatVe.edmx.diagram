@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4dbc5e802caa4741aeec5dd1a46b28ca" Name="Diagram1">
+      <Diagram DiagramId="aaeeb06f1d344d40946d10977d26cddb" Name="Diagram1">
         <EntityTypeShape EntityType="QLDATVEModel.CHITIETDATVE" Width="1.5" PointX="7.5" PointY="20" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.CHITIETHOADONDICHVU" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.CHITIETHUYVE" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.CHITIETKHUYENMAI" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.DICHVU" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLDATVEModel.GHE" Width="1.5" PointX="5.25" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDATVEModel.GHE" Width="1.5" PointX="5.25" PointY="24.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.HOADON" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.HUYDOIVE" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.KHACHHANG" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
@@ -22,6 +22,7 @@
         <EntityTypeShape EntityType="QLDATVEModel.PHUONGTHUCTHANHTOAN" Width="1.5" PointX="6" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.RAP" Width="1.5" PointX="0.75" PointY="26.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.SUATCHIEU" Width="1.5" PointX="8.25" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDATVEModel.TINHTRANGGHE" Width="1.5" PointX="10.5" PointY="25.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QLDATVEModel.VE" Width="1.5" PointX="5.25" PointY="19.625" IsExpanded="true" />
         <AssociationConnector Association="QLDATVEModel.FK_CHITIETD_CHITIETDA_GHE" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_CHITIETD_CHITIETDA_VE" ManuallyRouted="false" />
@@ -32,6 +33,7 @@
         <AssociationConnector Association="QLDATVEModel.FK_CHITIETK_CHITIETKH_HOADON" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_CHITIETK_CHITIETKH_KHUYENMA" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_GHE_RELATIONS_PHONGCHI" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDATVEModel.FK_TINHTRANGGHE_GHE" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_HOADON_RELATIONS_KHACHHAN" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_PHIEUTHA_PHIEUTHAN_HOADON" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_VE_RELATIONS_HOADON" ManuallyRouted="false" />
@@ -41,6 +43,7 @@
         <AssociationConnector Association="QLDATVEModel.FK_PHONGCHI_RELATIONS_RAP" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_SUATCHIEU_PHONGCHIEU" ManuallyRouted="false" />
         <AssociationConnector Association="QLDATVEModel.FK_SUATCHIE_RELATIONS_RAP" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDATVEModel.FK_TINHTRANGGHE_SUATCHIEU" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
