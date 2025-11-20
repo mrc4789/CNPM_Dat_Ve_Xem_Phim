@@ -14,6 +14,11 @@ namespace CNPM_Layout.Models
     
     public partial class SUATCHIEU
     {
+        public SUATCHIEU()
+        {
+            this.TINHTRANGGHEs = new HashSet<TINHTRANGGHE>();
+        }
+    
         public string MASUATCHIEU { get; set; }
         public string MAPHIM { get; set; }
         public string MARAP { get; set; }
@@ -26,5 +31,6 @@ namespace CNPM_Layout.Models
         public virtual PHIM PHIM { get; set; }
         public virtual PHONGCHIEU PHONGCHIEU { get; set; }
         public virtual RAP RAP { get; set; }
+        public virtual ICollection<TINHTRANGGHE> TINHTRANGGHEs { get; set; }
     }
 }

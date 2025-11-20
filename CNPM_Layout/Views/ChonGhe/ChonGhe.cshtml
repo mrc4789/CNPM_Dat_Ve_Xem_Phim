@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Xác nhận đặt vé";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card border-success">
+                <div class="card-body text-center py-5">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <h2 class="text-success mb-3">Đặt vé thành công!</h2>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["Success"]
+                        </div>
+                    }
+
+                    <p class="lead mb-4">
+                        Cảm ơn bạn đã đặt vé tại <strong>CGV Cinema</strong>
+                    </p>
+
+                    <hr />
+
+                    <div class="mt-4">
+                        <h5 class="mb-3">Thông tin quan trọng</h5>
+                        <ul class="list-unstyled text-left" style="max-width: 400px; margin: 0 auto;">
+                            <li class="mb-2">
+                                <i class="fas fa-envelope text-primary"></i>
+                                Thông tin đặt vé đã được gửi qua email
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-clock text-warning"></i>
+                                Vui lòng đến quầy trước giờ chiếu 15 phút
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-id-card text-info"></i>
+                                Mang theo CMND/CCCD để nhận vé
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-print text-secondary"></i>
+                                Bạn có thể in vé tại quầy hoặc dùng mã QR
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr />
+
+                    <div class="mt-4">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary btn-lg mr-2 mb-2">
+                            <i class="fas fa-home"></i> Về trang chủ
+                        </a>
+                        <a href="@Url.Action("Index", "MuaVe")" class="btn btn-danger btn-lg mb-2">
+                            <i class="fas fa-ticket-alt"></i> Đặt vé khác
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Khuyến mãi -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-gift text-danger"></i> Ưu đãi đặc biệt
+                    </h5>
+                    <p class="card-text">
+                        Đăng ký thành viên CGV để nhận ngay <strong>100.000đ</strong>
+                        và tích điểm mỗi lần mua vé!
+                    </p>
+                    <a href="#" class="btn btn-outline-danger">
+                        <i class="fas fa-user-plus"></i> Đăng ký ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Animation cho icon check
+            $('.fa-check-circle').hide().fadeIn(1000);
+        });
+    </script>
+}

@@ -1,0 +1,304 @@
+﻿@model List<CNPM_Layout.Models.LayDanhSachGheResult>
+
+@if (Model != null && !Model.Any())
+{
+    <div class="alert alert-warning text-center">
+        <i class="fas fa-exclamation-triangle"></i>
+        Không có dữ liệu ghế cho suất chiếu này.
+    </div>
+}
+else
+{
+    <!-- Màn hình chiếu -->
+    <div class="text-center mb-5">
+        <div class="screen mx-auto"></div>
+        <p class="text-muted mt-2">
+            <i class="fas fa-desktop"></i> SCREEN
+        </p>
+    </div>
+
+    <!-- Sơ đồ ghế -->
+    <div class="seat-map">
+        @{
+            var grouped = Model
+                .Where(g => !string.IsNullOrEmpty(g.DAYGHE))
+                .GroupBy(g => g.DAYGHE)
+                .OrderBy(g => g.Key);
+        }
+        @foreach (var row in grouped)
+        {
+            <div class="seat-row">
+                <span class="row-label">@row.Key</span>
+                @{
+                    var seatsInRow = row.OrderBy(s =>
+                    {
+                        if (s.COT.HasValue && s.COT.Value > 0)
+                            return s.COT.Value;
+
+                        if (!string.IsNullOrWhiteSpace(s.SOGHE))
+                        {
+                            int soGhe;
+                            if (int.TryParse(s.SOGHE.Trim(), out soGhe))
+                                return soGhe;
+                        }
+
+                        return 999;
+                    }).ToList();
+
+                    // Tìm khoảng trống (nếu có ghế cách xa nhau > 2)
+                    var gaps = new List<int>();
+                    for (int i = 0; i < seatsInRow.Count - 1; i++)
+                    {
+                        var current = seatsInRow[i].COT ?? 0;
+                        var next = seatsInRow[i + 1].COT ?? 0;
+                        if (next - current > 2)
+                        {
+                            gaps.Add(i + 1);
+                        }
+                    }
+                }
+
+                @for (int i = 0; i < seatsInRow.Count; i++)
+                {
+                    var seat = seatsInRow[i];
+                    string cssClass = "seat";
+                    string dataStatus = "";
+
+                    // Xác định trạng thái
+                    if (seat.TINHTRANG == "Trống")
+                    {
+                        cssClass += " available";
+                        dataStatus = "available";
+                    }
+                    else
+                    {
+                        cssClass += " unavailable";
+                        dataStatus = "taken";
+                    }
+
+                    // Xác định loại ghế
+                    if (!string.IsNullOrEmpty(seat.LOAIGHE))
+                    {
+                        var loaiLower = seat.LOAIGHE.ToLower();
+                        if (loaiLower.Contains("vip"))
+                        {
+                            cssClass += " vip";
+                        }
+                        else if (loaiLower.Contains("đôi") || loaiLower.Contains("sweetbox"))
+                        {
+                            cssClass += " sweetbox";
+                        }
+                        else
+                        {
+                            cssClass += " standard";
+                        }
+                    }
+                    else
+                    {
+                        cssClass += " standard";
+                    }
+
+                    <div class="@cssClass"
+                         data-id="@seat.MAGHE"
+                         data-status="@dataStatus"
+                         data-loai="@(seat.LOAIGHE ?? "")"
+                         data-price="@seat.PHUPHI"
+                         title="@seat.MAGHE - @(seat.LOAIGHE ?? "Standard") - @seat.TINHTRANG">
+                        @(seat.DAYGHE + seat.SOGHE)
+                    </div>
+
+                    @* Thêm khoảng trống nếu cần *@
+                    if (gaps.Contains(i + 1))
+                    {
+                        <div class="seat-gap"></div>
+                    }
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Chú thích -->
+    <div class="legend mt-4 pt-3 border-top">
+        <div class="row text-center">
+            <div class="col-6 col-md-3 mb-2">
+                <span class="seat available standard" style="pointer-events: none;">A1</span>
+                <small class="d-block">Ghế thường</small>
+            </div>
+            <div class="col-6 col-md-3 mb-2">
+                <span class="seat available vip" style="pointer-events: none;">E1</span>
+                <small class="d-block">Ghế VIP</small>
+            </div>
+            <div class="col-6 col-md-3 mb-2">
+                <span class="seat available sweetbox" style="pointer-events: none;">P1</span>
+                <small class="d-block">Ghế đôi</small>
+            </div>
+            <div class="col-6 col-md-3 mb-2">
+                <span class="seat unavailable" style="pointer-events: none;">X</span>
+                <small class="d-block">Đã đặt</small>
+            </div>
+        </div>
+        <div class="row text-center mt-2">
+            <div class="col-6 col-md-3 mb-2">
+                <span class="seat selected standard" style="pointer-events: none;">A2</span>
+                <small class="d-block">Đang chọn</small>
+            </div>
+            <div class="col-6 col-md-6 mb-2">
+                <p class="mb-0">
+                    <i class="fas fa-chair text-success"></i>
+                    <strong>Còn trống: @ViewBag.SoGheTrong / @ViewBag.TongSoGhe ghế</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form ẩn để submit -->
+    using (Html.BeginForm("DatGhe", "ChonGhe", FormMethod.Post, new { id = "bookingForm", style = "display:none;" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="maSuatChieu" value="@ViewBag.MaSuatChieu" />
+        <input type="hidden" name="seatIds" id="seatIdsInput" value="" />
+    }
+}
+
+<style>
+    /* Màn hình chiếu */
+    .screen {
+        height: 5px;
+        width: 80%;
+        max-width: 600px;
+        background: linear-gradient(to bottom, #666, #999);
+        border-radius: 50%;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+
+    /* Container sơ đồ ghế */
+    .seat-map {
+        max-width: 900px;
+        margin: 0 auto;
+        overflow-x: auto;
+    }
+
+    /* Hàng ghế */
+    .seat-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    /* Label dãy ghế */
+    .row-label {
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+        font-weight: bold;
+        color: #666;
+    }
+
+    /* Ghế */
+    .seat {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 34px;
+        font-size: 11px;
+        font-weight: 500;
+        border-radius: 4px;
+        border: 2px solid;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        user-select: none;
+    }
+
+    .seat:hover {
+        transform: scale(1.1);
+    }
+
+    /* Ghế thường */
+    .seat.standard {
+        border-color: #10b981;
+        color: #10b981;
+        background: #fff;
+    }
+
+    .seat.standard.available:hover {
+        background: #10b981;
+        color: white;
+    }
+
+    /* Ghế VIP */
+    .seat.vip {
+        border-color: #ef4444;
+        color: #ef4444;
+        background: #fff;
+    }
+
+    .seat.vip.available:hover {
+        background: #ef4444;
+        color: white;
+    }
+
+    /* Ghế đôi */
+    .seat.sweetbox {
+        border-color: #ec4899;
+        color: #ec4899;
+        background: #fff;
+    }
+
+    .seat.sweetbox.available:hover {
+        background: #ec4899;
+        color: white;
+    }
+
+    /* Ghế đã chọn */
+    .seat.selected {
+        background: #dc3545 !important;
+        border-color: #dc3545 !important;
+        color: white !important;
+    }
+
+    /* Ghế đã đặt */
+    .seat.unavailable {
+        background: #6c757d !important;
+        border-color: #6c757d !important;
+        color: #e5e5e5 !important;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .seat.unavailable:hover {
+        transform: none;
+    }
+
+    /* Khoảng trống giữa các cột ghế */
+    .seat-gap {
+        display: inline-block;
+        width: 30px;
+    }
+
+    /* Chú thích */
+    .legend .seat {
+        cursor: default;
+        margin: 0 auto;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .seat {
+            width: 32px;
+            height: 28px;
+            font-size: 9px;
+        }
+
+        .row-label {
+            width: 24px;
+            font-size: 12px;
+        }
+
+        .seat-gap {
+            width: 20px;
+        }
+    }
+</style>

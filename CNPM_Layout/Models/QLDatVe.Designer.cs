@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\CongNghePhanMem\2\CNPM_Dat_Ve_Xem_Phim-master\CNPM_Layout\Models\QLDatVe.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\lenovo\OneDrive\Máy tính\LTW\CNPM_Layout\CNPM_Layout\Models\QLDatVe.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

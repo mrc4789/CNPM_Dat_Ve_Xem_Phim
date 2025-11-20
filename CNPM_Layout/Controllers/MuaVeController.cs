@@ -74,11 +74,12 @@ public class MuaVeController : Controller
         return PartialView(listSuatChieu);
     }
     // Hiển thị chọn ngày chiếu
-    public ActionResult _NgayChieu(string diaChi, string ngayChieu, string maLoai)
+    public ActionResult _NgayChieu(string diaChi, string ngayChieu, string maLoai, string maSuatChieu)
     {
         ViewBag.DiaChiDuocChon = diaChi;
         ViewBag.NgayChieu = ngayChieu;
         ViewBag.LoaiMHChon = maLoai;
+        ViewBag.MaSuatChieu = ql.SUATCHIEUx.FirstOrDefault(x => x.MASUATCHIEU == maSuatChieu);
         return PartialView();
     }
 

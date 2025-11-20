@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ChonGheController.cs" />
     <Compile Include="Controllers\MuaVeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,7 +196,11 @@
     <Compile Include="Models\RAP.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LayDanhSachGheResult.cs" />
     <Compile Include="Models\SUATCHIEU.cs">
+      <DependentUpon>QLDatVe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TINHTRANGGHE.cs">
       <DependentUpon>QLDatVe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VE.cs">
@@ -270,16 +275,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\MuaVe\Index.cshtml" />
-    <Content Include="Views\MuaVe\ChonGhe.cshtml" />
+    <Content Include="Views\ChonGhe\Index.cshtml" />
     <Content Include="Views\MuaVe\_LoaiManHinh.cshtml" />
     <Content Include="Views\MuaVe\_NgayChieu.cshtml" />
     <Content Include="Views\MuaVe\_SuatChieu.cshtml" />
     <Content Include="Views\MuaVe\_LocTheoDiaChi.cshtml" />
-    <Content Include="Views\User\ProFile.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\EditProFile.cshtml" />
-    <Content Include="Views\User\LichSuGiaoDich.cshtml" />
-    <Content Include="Views\User\HistoryDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

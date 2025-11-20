@@ -188,6 +188,15 @@
           <Property Name="GIACOBAN" Type="float" />
           <Property Name="TRANGTHAI" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="TINHTRANGGHE">
+          <Key>
+            <PropertyRef Name="MAGHE" />
+            <PropertyRef Name="MASUATCHIEU" />
+          </Key>
+          <Property Name="MAGHE" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="MASUATCHIEU" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="VE">
           <Key>
             <PropertyRef Name="MAVE" />
@@ -404,6 +413,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TINHTRANGGHE_GHE">
+          <End Role="GHE" Type="Self.GHE" Multiplicity="1" />
+          <End Role="TINHTRANGGHE" Type="Self.TINHTRANGGHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GHE">
+              <PropertyRef Name="MAGHE" />
+            </Principal>
+            <Dependent Role="TINHTRANGGHE">
+              <PropertyRef Name="MAGHE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TINHTRANGGHE_SUATCHIEU">
+          <End Role="SUATCHIEU" Type="Self.SUATCHIEU" Multiplicity="1" />
+          <End Role="TINHTRANGGHE" Type="Self.TINHTRANGGHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUATCHIEU">
+              <PropertyRef Name="MASUATCHIEU" />
+            </Principal>
+            <Dependent Role="TINHTRANGGHE">
+              <PropertyRef Name="MASUATCHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VE_RELATIONS_HOADON">
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
           <End Role="VE" Type="Self.VE" Multiplicity="*" />
@@ -434,6 +467,7 @@
           <EntitySet Name="PHUONGTHUCTHANHTOAN" EntityType="Self.PHUONGTHUCTHANHTOAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RAP" EntityType="Self.RAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SUATCHIEU" EntityType="Self.SUATCHIEU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TINHTRANGGHE" EntityType="Self.TINHTRANGGHE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VE" EntityType="Self.VE" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CHITIETD_CHITIETDA_GHE" Association="Self.FK_CHITIETD_CHITIETDA_GHE">
             <End Role="GHE" EntitySet="GHE" />
@@ -502,6 +536,14 @@
           <AssociationSet Name="FK_SUATCHIEU_PHONGCHIEU" Association="Self.FK_SUATCHIEU_PHONGCHIEU">
             <End Role="PHONGCHIEU" EntitySet="PHONGCHIEU" />
             <End Role="SUATCHIEU" EntitySet="SUATCHIEU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TINHTRANGGHE_GHE" Association="Self.FK_TINHTRANGGHE_GHE">
+            <End Role="GHE" EntitySet="GHE" />
+            <End Role="TINHTRANGGHE" EntitySet="TINHTRANGGHE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TINHTRANGGHE_SUATCHIEU" Association="Self.FK_TINHTRANGGHE_SUATCHIEU">
+            <End Role="SUATCHIEU" EntitySet="SUATCHIEU" />
+            <End Role="TINHTRANGGHE" EntitySet="TINHTRANGGHE" />
           </AssociationSet>
           <AssociationSet Name="FK_VE_RELATIONS_HOADON" Association="Self.FK_VE_RELATIONS_HOADON">
             <End Role="HOADON" EntitySet="HOADON" />
@@ -587,6 +629,7 @@
           <Property Name="PHUPHI" Type="Double" />
           <NavigationProperty Name="CHITIETDATVEs" Relationship="Self.FK_CHITIETD_CHITIETDA_GHE" FromRole="GHE" ToRole="CHITIETDATVE" />
           <NavigationProperty Name="PHONGCHIEU" Relationship="Self.FK_GHE_RELATIONS_PHONGCHI" FromRole="GHE" ToRole="PHONGCHIEU" />
+          <NavigationProperty Name="TINHTRANGGHEs" Relationship="Self.FK_TINHTRANGGHE_GHE" FromRole="GHE" ToRole="TINHTRANGGHE" />
         </EntityType>
         <EntityType Name="HOADON">
           <Key>
@@ -729,6 +772,18 @@
           <NavigationProperty Name="PHIM" Relationship="Self.FK_SUATCHIE_RELATIONS_PHIM" FromRole="SUATCHIEU" ToRole="PHIM" />
           <NavigationProperty Name="PHONGCHIEU" Relationship="Self.FK_SUATCHIEU_PHONGCHIEU" FromRole="SUATCHIEU" ToRole="PHONGCHIEU" />
           <NavigationProperty Name="RAP" Relationship="Self.FK_SUATCHIE_RELATIONS_RAP" FromRole="SUATCHIEU" ToRole="RAP" />
+          <NavigationProperty Name="TINHTRANGGHEs" Relationship="Self.FK_TINHTRANGGHE_SUATCHIEU" FromRole="SUATCHIEU" ToRole="TINHTRANGGHE" />
+        </EntityType>
+        <EntityType Name="TINHTRANGGHE">
+          <Key>
+            <PropertyRef Name="MAGHE" />
+            <PropertyRef Name="MASUATCHIEU" />
+          </Key>
+          <Property Name="MAGHE" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MASUATCHIEU" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GHE" Relationship="Self.FK_TINHTRANGGHE_GHE" FromRole="TINHTRANGGHE" ToRole="GHE" />
+          <NavigationProperty Name="SUATCHIEU" Relationship="Self.FK_TINHTRANGGHE_SUATCHIEU" FromRole="TINHTRANGGHE" ToRole="SUATCHIEU" />
         </EntityType>
         <EntityType Name="VE">
           <Key>
@@ -852,6 +907,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TINHTRANGGHE_GHE">
+          <End Role="GHE" Type="Self.GHE" Multiplicity="1" />
+          <End Role="TINHTRANGGHE" Type="Self.TINHTRANGGHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GHE">
+              <PropertyRef Name="MAGHE" />
+            </Principal>
+            <Dependent Role="TINHTRANGGHE">
+              <PropertyRef Name="MAGHE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HOADON_RELATIONS_KHACHHAN">
           <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
@@ -960,6 +1027,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TINHTRANGGHE_SUATCHIEU">
+          <End Role="SUATCHIEU" Type="Self.SUATCHIEU" Multiplicity="1" />
+          <End Role="TINHTRANGGHE" Type="Self.TINHTRANGGHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUATCHIEU">
+              <PropertyRef Name="MASUATCHIEU" />
+            </Principal>
+            <Dependent Role="TINHTRANGGHE">
+              <PropertyRef Name="MASUATCHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="QLDATVEEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CHITIETDATVEs" EntityType="Self.CHITIETDATVE" />
           <EntitySet Name="CHITIETHOADONDICHVUs" EntityType="Self.CHITIETHOADONDICHVU" />
@@ -978,6 +1057,7 @@
           <EntitySet Name="PHUONGTHUCTHANHTOANs" EntityType="Self.PHUONGTHUCTHANHTOAN" />
           <EntitySet Name="RAPs" EntityType="Self.RAP" />
           <EntitySet Name="SUATCHIEUx" EntityType="Self.SUATCHIEU" />
+          <EntitySet Name="TINHTRANGGHEs" EntityType="Self.TINHTRANGGHE" />
           <EntitySet Name="VEs" EntityType="Self.VE" />
           <AssociationSet Name="FK_CHITIETD_CHITIETDA_GHE" Association="Self.FK_CHITIETD_CHITIETDA_GHE">
             <End Role="GHE" EntitySet="GHEs" />
@@ -1015,6 +1095,10 @@
             <End Role="PHONGCHIEU" EntitySet="PHONGCHIEUx" />
             <End Role="GHE" EntitySet="GHEs" />
           </AssociationSet>
+          <AssociationSet Name="FK_TINHTRANGGHE_GHE" Association="Self.FK_TINHTRANGGHE_GHE">
+            <End Role="GHE" EntitySet="GHEs" />
+            <End Role="TINHTRANGGHE" EntitySet="TINHTRANGGHEs" />
+          </AssociationSet>
           <AssociationSet Name="FK_HOADON_RELATIONS_KHACHHAN" Association="Self.FK_HOADON_RELATIONS_KHACHHAN">
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
             <End Role="HOADON" EntitySet="HOADONs" />
@@ -1050,6 +1134,10 @@
           <AssociationSet Name="FK_SUATCHIE_RELATIONS_RAP" Association="Self.FK_SUATCHIE_RELATIONS_RAP">
             <End Role="RAP" EntitySet="RAPs" />
             <End Role="SUATCHIEU" EntitySet="SUATCHIEUx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TINHTRANGGHE_SUATCHIEU" Association="Self.FK_TINHTRANGGHE_SUATCHIEU">
+            <End Role="SUATCHIEU" EntitySet="SUATCHIEUx" />
+            <End Role="TINHTRANGGHE" EntitySet="TINHTRANGGHEs" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1250,6 +1338,15 @@
                 <ScalarProperty Name="GIOCHIEU" ColumnName="GIOCHIEU" />
                 <ScalarProperty Name="GIACOBAN" ColumnName="GIACOBAN" />
                 <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TINHTRANGGHEs">
+            <EntityTypeMapping TypeName="QLDATVEModel.TINHTRANGGHE">
+              <MappingFragment StoreEntitySet="TINHTRANGGHE">
+                <ScalarProperty Name="MAGHE" ColumnName="MAGHE" />
+                <ScalarProperty Name="MASUATCHIEU" ColumnName="MASUATCHIEU" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
