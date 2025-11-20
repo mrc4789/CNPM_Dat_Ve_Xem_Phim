@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "P01",
+    "Title": "Avengers: Endgame",
+    "Poster": "https://i.imgur.com/example.jpg",
+    "Genre": "Action",
+    "Duration": "180",
+    "ReleaseDate": "2019-04-26"
+  },
+  {
+    "Id": "P02",
+    "Title": "Spider-Man: No Way Home",
+    "Poster": "https://i.imgur.com/example2.jpg",
+    "Genre": "Adventure",
+    "Duration": "148",
+    "ReleaseDate": "2021-12-17"
+  }
+]
